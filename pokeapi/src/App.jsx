@@ -2,28 +2,10 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NamePage from "./pages/name";
 import Layout from "./pages/layout";
-// import PokeDetail from "./pages/poke-detail";
-// import { getName, getPokemon, getSpecificPokemon } from "./api/index";
+import PokeDetail from "./pages/poke-detail";
+import { getPokemon, getSpecificPokemon } from "./api/index";
 import "./App.css";
-import { useState, useEffect } from "react";
 
-
-function GetPokemon (){
-  const [pokemon, setPokemon] = useState([]);
-​
-useEffect(async () => {
-  axios.get("https://pokeapi.co/api/v2/pokemon").then(res => {
-    setPokemon(res.data.results.map(p => p.name))
-  });
-},[])
-  return (
-    <NamePage pokemon={pokemon} />
-  )
-  
-​}
-
-
- 
 
 
 const router = createBrowserRouter([
@@ -32,14 +14,24 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "name",
+        path: "/pokemon",
         element: <NamePage />,
         loader: () => {
-          return GetPokemon();
+          return getPokemon();
         },
       }
     ],
   },
+  {
+    path: "/pokemon/:name",
+    element: <PokeDetail />,
+    loader: ({ params }) => {
+    const pokeName = params.name;
+    return getSpecificPokemon(pokeName);
+
+      
+    },
+  }
   
 ]);
 

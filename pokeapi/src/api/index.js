@@ -6,22 +6,10 @@ const API_URL = "https://pokeapi.co/api/v2";
 
 export const getPokemon = async () => {
     try {
-        const [pokemons, setPokemons] = useState([]);
-​
-  useEffect(async () => {
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon");
-    const data = await response.json();
-​
-    setPokemons(data.results);
-  });
-​
-  return (
-    <ul>
-      {pokemons.map(({ name, url }) => (
-        <li key={url}>{name}</li>
-      ))}
-    </ul>
-  );
+
+    const response = await axios.get("https://pokeapi.co/api/v2/pokemon");
+    const data = response.data;
+  return data;
        
 
     } catch(e){

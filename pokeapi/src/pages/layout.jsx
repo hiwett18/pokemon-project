@@ -13,7 +13,7 @@ export default function Layout() {
         <NavLink to="/">Home</NavLink>
       </HStack>
       <HStack justify="center">
-        <NavLink to="/name">
+        <NavLink to="/pokemon">
           {({ isActive }) => (
             <Box
               p="2"
